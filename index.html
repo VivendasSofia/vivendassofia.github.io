@@ -1,1 +1,123 @@
-const target = new Date(2026, 8, 1, 0, 0, 0);
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivendas Sofia - Próximamente</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        
+        #countdown {
+            color: #fff;
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+        
+        .time-units {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .time-unit {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            color: white;
+        }
+        
+        .time-value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .time-label {
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vivendas Sofia</h1>
+        <p style="color: white; margin-bottom: 30px; font-size: 1.2em;">Próximamente...</p>
+        
+        <div id="countdown"></div>
+        
+        <div class="time-units">
+            <div class="time-unit">
+                <div class="time-value" id="days">0</div>
+                <div class="time-label">Días</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="hours">0</div>
+                <div class="time-label">Horas</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="minutes">0</div>
+                <div class="time-label">Minutos</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="seconds">0</div>
+                <div class="time-label">Segundos</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const target = new Date(2026, 8, 1, 0, 0, 0); // 1 de septiembre de 2026
+
+        function updateCountdown() {
+            const now = new Date();
+            const difference = target - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((difference / 1000 / 60) % 60);
+                const seconds = Math.floor((difference / 1000) % 60);
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            } else {
+                document.getElementById('countdown').textContent = '¡Ha llegado el momento!';
+            }
+        }
+
+        // Actualizar cada segundo
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Llamar una vez al cargar
+    </script>
+</body>
+</html>
